@@ -3,7 +3,7 @@ from django.urls import path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from api.views import book_list, redirect_to_book_list, welcome  # Import the welcome view
+from api.views import book_list, welcome  # Ensure you import the necessary views
 
 schema_view = get_schema_view(
     openapi.Info(

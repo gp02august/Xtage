@@ -9,10 +9,10 @@
     <div class="container">
         <h1 class="my-4">Book List</h1>
         <form method="GET" action="{% url 'book-list' %}" class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" name="q" placeholder="Search books" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" id="search-box" name="q" placeholder="Search books" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
-        <ul class="list-group mt-4">
+        <ul class="list-group mt-4" id="search-results">
             {% for book in books %}
                 <li class="list-group-item">
                     <h2>{{ book.title }}</h2>
@@ -27,5 +27,20 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#search-box").on("keyup", function(){
+                var query = $(this).val();
+                $.ajax({
+                    url: "{% url 'book-list' %}",
+                    type: "GET",
+                    data: {'q': query},
+                    success: function(data){
+                        $("#search-results").html(data.html);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
